@@ -1,0 +1,26 @@
+# Project exclude paths
+/commom_eureka/target/
+/common_mapper/target/
+/common_pojo/target/
+/common_redis/target/
+/common_utils/target/
+/usian_cart_feign/target/
+/usian_cart_service/target/
+/usian_cart_web/target/
+/usian_content_feign/target/
+/usian_content_service/target/
+/usian_content_web/target/
+/usian_detail_web/target/
+/usian_item_feign/target/
+/usian_item_service/target/
+/usian_item_web/target/
+/usian_order_feign/target/
+/usian_order_service/target/
+/usian_order_web/target/
+/usian_portal_web/target/
+/usian_search_feign/target/
+/usian_search_service/target/
+/usian_search_web/target/
+/usian_sso_feign/target/
+/usian_sso_service/target/
+/usian_sso_web/target/
