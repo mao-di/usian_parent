@@ -43,6 +43,9 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
         criteria.andParentIdEqualTo(id);
         criteria.andStatusEqualTo(1);
         List<TbItemCat> list = this.tbItemCatMapper.selectByExample(example);
+        if (id != 0) {
+            int a = 6 / 0;
+        }
         return list;
     }
 
@@ -50,8 +53,8 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
     public CatResult selectItemCategoryAll() {
         //查询缓存
         CatResult catResultRedis =
-                (CatResult)redisClient.get(portal_catresult_redis_key);
-        if(catResultRedis!=null){
+                (CatResult) redisClient.get(portal_catresult_redis_key);
+        if (catResultRedis != null) {
             System.out.println("查redis--selectItemCategoryAll");
             return catResultRedis;
         }
@@ -60,12 +63,12 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
         catResult.setData(getCatList(0L));
         System.out.println("查数据库--selectItemCategoryAll");
         //添加到缓存
-        redisClient.set(portal_catresult_redis_key,catResult);
+        redisClient.set(portal_catresult_redis_key, catResult);
 
         return catResult;
     }
 
-    private List<?> getCatList(Long parentId){
+    private List<?> getCatList(Long parentId) {
         //创建查询条件
         TbItemCatExample example = new TbItemCatExample();
         TbItemCatExample.Criteria criteria = example.createCriteria();
@@ -73,19 +76,19 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
         List<TbItemCat> list = this.tbItemCatMapper.selectByExample(example);
         List resultList = new ArrayList();
         int count = 0;
-        for(TbItemCat tbItemCat:list){
+        for (TbItemCat tbItemCat : list) {
             //判断是否是父节点
-            if(tbItemCat.getIsParent()){
+            if (tbItemCat.getIsParent()) {
                 CatNode catNode = new CatNode();
                 catNode.setName(tbItemCat.getName());
                 catNode.setItem(getCatList(tbItemCat.getId()));
                 resultList.add(catNode);
                 count++;
                 //只取商品分类中的 18 条数据
-                if (count == 18){
+                if (count == 18) {
                     break;
                 }
-            }else{
+            } else {
                 resultList.add(tbItemCat.getName());
             }
         }

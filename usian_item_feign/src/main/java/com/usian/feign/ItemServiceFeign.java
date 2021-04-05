@@ -1,5 +1,6 @@
 package com.usian.feign;
 
+import com.usian.fallback.ItemServiceFallback;
 import com.usian.pojo.*;
 import com.usian.utils.CatResult;
 import com.usian.utils.PageResult;
@@ -15,7 +16,7 @@ import java.util.Map;
  * Author:maodi
  * CreateTime:2021/03/11/13:05
  */
-@FeignClient(value = "usian-item-service")
+@FeignClient(value = "usian-item-service",fallbackFactory = ItemServiceFallback.class)
 public interface ItemServiceFeign {
 
     @RequestMapping("/service/item/selectItemInfo")
